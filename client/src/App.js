@@ -1,24 +1,23 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+// import logo from './logo.svg';
+// import logo from './logo.svg';
+
+import Navbar from './components/Navbar';
+import LandingPage from './pages/LandingPage';
+import HomePage from './pages/HomePage';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
+  const [user, setUser] = useState(null); // Track login state
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <div className="App">
+        <Navbar />
+        {user ? <HomePage /> : <LandingPage />}
+      </div>
+    </AuthContext.Provider>
   );
 }
 
